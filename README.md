@@ -20,13 +20,13 @@ gcc server.c -o server.exe -lws2_32 -D_WIN32_WINNT=0x0601
 The program hooks into the keyboard to intercept keystrokes, sending the data to the server while also saving it to a local file.
 
 ## Configuration Options:
-###SERVER_MODE:
+### SERVER_MODE:
 Set to 0 to enable "offline" mode, where the keylogger does not communicate with the server.
 
-###WRITE_FILE:
+### WRITE_FILE:
 Set to 0 to disable saving intercepted keystrokes to a file.
 
 Feel free to modify the code to customize the format or behavior of the program.
 
-##Disclaimer:
+## Disclaimer:
 This project is for educational use only. Any illegal use of this software is strictly prohibited and entirely your responsibility.
