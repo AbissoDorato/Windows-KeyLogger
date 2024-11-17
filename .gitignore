@@ -1,0 +1,21 @@
+# Ignore executable files
+*.exe
+
+# Ignore logs
+*.log
+
+# Ignore temporary and backup files
+*.tmp
+*.bak
+*.swp
+
+# Ignore build directories
+/build/
+/dist/
+
+# Ignore user-specific files
+.DS_Store
+Thumbs.db
+
+# Ignore the actual configuration file
+config.h
