@@ -35,7 +35,7 @@ Feel free to modify the code to customize the format or behavior of the program.
 I am still working on the following problems:
 - the keylogger is just a shell programm, so if the user closes the shell the programs might stop, i need to modify it in order to let the executive launch as a deamon
 - there should be less print statement in order to be more silent
-- open to suggestions
+- Right know i need to put the name of the server in the main, so i should find a way to obscure it 
 
 ## Disclaimer:
 This project is for educational use only. Any illegal use of this software is strictly prohibited and entirely your responsibility.
