@@ -9,7 +9,7 @@ This project was created for educational purposes only, with no malicious intent
 To build the keylogger, ensure you are using Windows 11. Use the following commands to compile the main script and the server:
 
 ### config.h
-Modify the template _config._ex.h_ and put your information
+Modify the template **config_ex.h** and put your information
 
 ### Main Script:
 ```bash
